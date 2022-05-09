@@ -17,7 +17,7 @@ app.use(express.json())
 app.post('/pessoas', async(req,res)=>{
     const {nome,salario,aprovado} = req.body
     if(!nome){
-        res.status(422).json({error:'Nome é obrigatório'})
+        res.status(422).json({error:'Nome é obrigatório. Não pode estar vazio!'})
     }
     const pessoas = {
         nome,
