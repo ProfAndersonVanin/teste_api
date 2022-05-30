@@ -3,7 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 
-const Pessoas = require('./models/Pessoas')
+
 
 app.use(
     express.urlencoded({
@@ -13,24 +13,10 @@ app.use(
 
 app.use(express.json())
 
-//rotas da API - Aula 02
-app.post('/pessoas', async(req,res)=>{
-    const {nome,salario,aprovado} = req.body
-    if(!nome){
-        res.status(422).json({error:'Nome é obrigatório!'})
-    }
-    const pessoas = {
-        nome,
-        salario,
-        aprovado
-    }
-    try {
-        await Pessoas.create(pessoas)
-        res.status(201).json({message:'Pessoa inserida com sucesso!'})
-    } catch (error) {
-        res.status(500).json({error:error})
-    }
-})
+// rotas da api
+const pessoasRoutes = require('./routes/pessoasRoutes')
+app.use('/pessoas',pessoasRoutes)
+
 
 //rota inicial ==> endpoint
 app.get('/',(req,res)=>{
